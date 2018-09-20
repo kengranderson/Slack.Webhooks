@@ -10,9 +10,9 @@ namespace Slack.Webhooks
 {
     public class SlackClient : ISlackClient
     {
-        private readonly Uri _webhookUri;
-        private const string POST_SUCCESS = "ok";
-        private int _timeout = 100;
+        readonly Uri _webhookUri;
+        const string POST_SUCCESS = "ok";
+        int _timeout = 100;
 
         /// <summary>
         /// Returns the current Timeout value.

@@ -10,7 +10,6 @@ namespace Slack.Webhooks
     /// </summary>
     public class SlackMessage
     {
-        private bool _markdown = true;
         /// <summary>
         /// This is the text that will be posted to the channel
         /// </summary>
@@ -47,11 +46,7 @@ namespace Slack.Webhooks
         /// Optional override markdown mode. Default: true
         /// </summary>
         [JsonProperty(PropertyName = "mrkdwn")]
-        public bool Markdown
-        {
-            get { return _markdown; }
-            set { _markdown = value; }
-        }
+        public bool Markdown { get; set; } = true;
         /// <summary>
         /// Optional override markdown mode. Default: true
         /// </summary>
@@ -59,8 +54,8 @@ namespace Slack.Webhooks
         [JsonIgnore]
         public bool Mrkdwn
         {
-            get { return _markdown; }
-            set { _markdown = value; }
+            get { return Markdown; }
+            set { Markdown = value; }
         }
         /// <summary>
         /// Enable linkification of channel and usernames
