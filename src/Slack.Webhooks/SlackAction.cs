@@ -8,9 +8,6 @@ namespace Slack.Webhooks
     /// </summary>
     public class SlackAction
     {
-        private SlackActionType _type = SlackActionType.Button;
-        private SlackActionStyle _style = SlackActionStyle.Default;
-        private SlackActionDataSource _dataSource = SlackActionDataSource.Static;
 
         /// <summary>
         /// Provide a string to give this specific action a name.   
@@ -24,11 +21,7 @@ namespace Slack.Webhooks
         /// provide select when the action is a message menu.
         /// </summary>
         /// <see cref="SlackActionType"/>
-        public SlackActionType Type
-        {
-            get { return _type; }
-            set { _type = value; }
-        }
+        public SlackActionType Type { get; set; } = SlackActionType.Button;
         /// <summary>
         /// The user-facing label for the message button or menu 
         /// representing this action. Cannot contain markup. Best 
@@ -58,22 +51,14 @@ namespace Slack.Webhooks
         /// destructive activity.
         /// </summary>
         /// <see cref="SlackActionStyle"/>
-        public SlackActionStyle Style
-        {
-            get { return _style; }
-            set { _style = value; }
-        }
+        public SlackActionStyle Style { get; set; } = SlackActionStyle.Default;
         /// <summary>
         /// Accepts static, users, channels, conversations, or external. 
         /// Our clever default behavior is default, which means the menu's 
         /// options are provided directly in the posted message under options.
         /// </summary>
         /// <see cref="SlackActionDataSource"/>
-        public SlackActionDataSource DataSource
-        {
-            get { return _dataSource; }
-            set { _dataSource = value; }
-        }
+        public SlackActionDataSource DataSource { get; set; } = SlackActionDataSource.Static;
         /// <summary>
         /// Used only with message menus. The individual options to appear in 
         /// this menu, provided as an array of option fields. Required when 

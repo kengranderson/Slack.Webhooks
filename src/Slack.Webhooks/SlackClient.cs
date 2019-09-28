@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -12,23 +10,17 @@ namespace Slack.Webhooks
     {
         readonly Uri _webhookUri;
         const string POST_SUCCESS = "ok";
-        int _timeout = 100;
+        static readonly HttpClient _httpClient = new HttpClient();
 
-        /// <summary>
-        /// Returns the current Timeout value.
-        /// </summary>
-        internal int TimeoutMs { get { return _timeout * 1000; } }
-
-        public SlackClient(string webhookUrl, int timeout = 100)
+        public SlackClient(string webhookUrl)
         {
             if (!Uri.TryCreate(webhookUrl, UriKind.Absolute, out _webhookUri))
                 throw new ArgumentException("Please enter a valid webhook url");
-            _timeout = timeout;
         }
         
         public virtual bool Post(SlackMessage slackMessage)
         {
-            var result = PostAsync(slackMessage);
+            var result = Task.Run(async () => await PostAsync(slackMessage).ConfigureAwait(false));
             return result.Result;
         }
 
@@ -49,10 +41,15 @@ namespace Slack.Webhooks
         public async Task<bool> PostAsync(SlackMessage slackMessage)
         {
             var payload = slackMessage.AsJson();
-            using (var httpClient = new HttpClient { Timeout = new TimeSpan(0, 0, _timeout) })
-            using (var response = await httpClient.PostAsync(_webhookUri.OriginalString, new StringContent(payload)).ConfigureAwait(false))
+            using (var request = new HttpRequestMessage
             {
-                var content = await response.Content.ReadAsStringAsync();
+                RequestUri = _webhookUri,
+                Method = HttpMethod.Post,
+                Content = new StringContent(payload)
+            })
+            using (var response = await _httpClient.SendAsync(request).ConfigureAwait(false))
+            {
+                var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                 return content.Equals(POST_SUCCESS, StringComparison.OrdinalIgnoreCase);
             }
         }

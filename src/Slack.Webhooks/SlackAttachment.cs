@@ -9,7 +9,6 @@ namespace Slack.Webhooks
     /// </summary>
     public class SlackAttachment
     {
-        private List<string> _markdownIn;
 
         /// <summary>
         /// Required text summary of the attachment that is shown by clients that understand attachments but choose not to show them.
@@ -78,11 +77,7 @@ namespace Slack.Webhooks
         /// applicable to fields, title, and pretext
         /// </summary>
         [JsonProperty(PropertyName = "mrkdwn_in")]
-        public List<string> MarkdownIn
-        {
-            get { return _markdownIn; }
-            set { _markdownIn = value; }
-        }
+        public List<string> MarkdownIn { get; set; }
         /// <summary>
         /// Add some brief text to help contextualize and identify an attachment. Limited to 300 characters, and may be truncated further when displayed to users in environments with limited screen real estate.
         /// </summary>
@@ -101,8 +96,8 @@ namespace Slack.Webhooks
         [JsonIgnore]
         public List<string> MrkdwnIn
         {
-            get { return _markdownIn; }
-            set { _markdownIn = value; }
+            get { return MarkdownIn; }
+            set { MarkdownIn = value; }
         }
         /// <summary>
         /// The actions you provide will be rendered as message buttons or menus to users.
