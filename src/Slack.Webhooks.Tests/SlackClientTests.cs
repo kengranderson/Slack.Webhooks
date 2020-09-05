@@ -42,7 +42,7 @@ namespace Slack.Webhooks.Tests
         public void SlackClient_post()
         {
             //arrange
-            const string webserviceurl = "https://hooks.slack.com/services/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";
+            const string webserviceurl = "https://hooks.slack.com/put-real-webhook-here";
             var client = new SlackClient(webserviceurl);
 
             //act
