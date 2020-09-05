@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Slack.Webhooks
 {
@@ -76,7 +76,7 @@ namespace Slack.Webhooks
         /// Optional list of proporties where markdown syntax will be parsed
         /// applicable to fields, title, and pretext
         /// </summary>
-        [JsonProperty(PropertyName = "mrkdwn_in")]
+        [JsonPropertyName("mrkdwn_in")]
         public List<string> MarkdownIn { get; set; }
         /// <summary>
         /// Add some brief text to help contextualize and identify an attachment. Limited to 300 characters, and may be truncated further when displayed to users in environments with limited screen real estate.

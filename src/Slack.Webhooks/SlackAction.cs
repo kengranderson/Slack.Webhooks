@@ -21,7 +21,7 @@ namespace Slack.Webhooks
         /// provide select when the action is a message menu.
         /// </summary>
         /// <see cref="SlackActionType"/>
-        public SlackActionType Type { get; set; } = SlackActionType.Button;
+        public SlackActionType Type { get; set; } = SlackActionType.button;
         /// <summary>
         /// The user-facing label for the message button or menu 
         /// representing this action. Cannot contain markup. Best 
@@ -51,14 +51,14 @@ namespace Slack.Webhooks
         /// destructive activity.
         /// </summary>
         /// <see cref="SlackActionStyle"/>
-        public SlackActionStyle Style { get; set; } = SlackActionStyle.Default;
+        public SlackActionStyle Style { get; set; } = SlackActionStyle.@default;
         /// <summary>
         /// Accepts static, users, channels, conversations, or external. 
         /// Our clever default behavior is default, which means the menu's 
         /// options are provided directly in the posted message under options.
         /// </summary>
         /// <see cref="SlackActionDataSource"/>
-        public SlackActionDataSource DataSource { get; set; } = SlackActionDataSource.Static;
+        public SlackActionDataSource DataSource { get; set; } = SlackActionDataSource.@static;
         /// <summary>
         /// Used only with message menus. The individual options to appear in 
         /// this menu, provided as an array of option fields. Required when 

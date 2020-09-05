@@ -1,50 +1,49 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace Slack.Webhooks
 {
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum ParseMode
     {
         [EnumMember(Value = "none")]
-        None,
+        none,
         [EnumMember(Value = "full")]
-        Full
+        full
     }
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SlackActionDataSource
     {
         [EnumMember(Value = "static")]
-        Static,
+        @static,
         [EnumMember(Value = "users")]
-        Users,
+        users,
         [EnumMember(Value = "channels")]
-        Channels,
+        channels,
         [EnumMember(Value = "conversations")]
-        Conversations,
+        conversations,
         [EnumMember(Value = "external")]
-        External
+        external
     }
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SlackActionStyle
     {
         [EnumMember(Value = "default")]
-        Default,
+        @default,
         [EnumMember(Value = "primary")]
-        Primary,
+        primary,
         [EnumMember(Value = "danger")]
-        Danger
+        danger
     }
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum SlackActionType
     {
         [EnumMember(Value = "button")]
-        Button,
+        button,
         [EnumMember(Value = "select")]
-        Select
+        select
     }
 }

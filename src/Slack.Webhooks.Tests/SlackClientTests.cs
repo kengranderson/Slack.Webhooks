@@ -39,6 +39,26 @@ namespace Slack.Webhooks.Tests
         }
 
         [Fact]
+        public void SlackClient_post()
+        {
+            //arrange
+            const string webserviceurl = "https://hooks.slack.com/services/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";
+            var client = new SlackClient(webserviceurl);
+
+            //act
+            var slackMessage = new SlackMessage
+            {
+                Text = "Wassup!",
+                Username = "testbot",
+                IconEmoji = Emoji.Ghost
+            };
+            var result = client.Post(slackMessage);
+
+            //assert
+            Assert.True(result);
+        }
+
+        [Fact]
         public void SlackClient_should_remember_timeout()
         {
             const string webserviceurl = "https://hooks.slack.com/invalid";

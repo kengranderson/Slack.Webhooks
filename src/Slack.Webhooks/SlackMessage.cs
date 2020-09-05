@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Slack.Webhooks
 {
@@ -45,18 +45,9 @@ namespace Slack.Webhooks
         /// <summary>
         /// Optional override markdown mode. Default: true
         /// </summary>
-        [JsonProperty(PropertyName = "mrkdwn")]
+        [JsonPropertyName("mrkdwn")]
         public bool Markdown { get; set; } = true;
-        /// <summary>
-        /// Optional override markdown mode. Default: true
-        /// </summary>
-        [Obsolete("Mrkdwn has been deprecated, please use 'Markdown' instead.")]
-        [JsonIgnore]
-        public bool Mrkdwn
-        {
-            get { return Markdown; }
-            set { Markdown = value; }
-        }
+
         /// <summary>
         /// Enable linkification of channel and usernames
         /// </summary>
@@ -99,16 +90,15 @@ namespace Slack.Webhooks
         /// <returns>JSON formatted string</returns>
         public string AsJson()
         {
-            var resolver = new DefaultContractResolver
+            var serialized = JsonSerializer.Serialize(this, new JsonSerializerOptions
             {
-                NamingStrategy = new SnakeCaseNamingStrategy()
-            };
-
-            return JsonConvert.SerializeObject(this, new JsonSerializerSettings
-            {
-                ContractResolver = resolver,
-                NullValueHandling = NullValueHandling.Ignore
+                PropertyNamingPolicy = new SnakeCaseNamingPolicy(),
+                DictionaryKeyPolicy = new SnakeCaseNamingPolicy(),
+                PropertyNameCaseInsensitive = true,
+                IgnoreNullValues = true
             });
+
+            return serialized;
         }
     }
 }
